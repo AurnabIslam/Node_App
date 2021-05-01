@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TODO App</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+      <div class="main-container edit">
+        <a href="/items" >Back</a>
+        <br/>
+    <div class="task-info" id="task-info">
+        <div class="rowFlex">
+        <h2><%= result.task %></h2> 
+        <div>
+            <span title="Edit" class="btn" onclick="showform();"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 45 45" height="30px" id="Layer_1" version="1.1" viewBox="0 0 45 45" width="45px" xml:space="preserve"><g><rect fill="#231F20" height="23" transform="matrix(-0.7071 -0.7072 0.7072 -0.7071 38.2666 48.6029)" width="11" x="23.7" y="4.875"/><path d="M44.087,3.686l-2.494-2.494c-1.377-1.377-3.61-1.377-4.987,0L34.856,2.94l7.778,7.778l1.749-1.749   C45.761,7.593,45.465,5.063,44.087,3.686z" fill="#231F20"/><polygon fill="#231F20" points="16,22.229 16,30 23.246,30  "/><path d="M29,40H5V16h12.555l5-5H3.5C1.843,11,0,11.843,0,13.5v28C0,43.156,1.843,45,3.5,45h28   c1.656,0,2.5-1.844,2.5-3.5V23.596l-5,5V40z" fill="#231F20"/></g></svg></span>
+            <span title="Delete" class="btn" onclick="handleDelete()"><svg xmlns="http://www.w3.org/2000/svg" height="25pt" viewBox="-64 0 512 512" width="25pt"><path d="m256 80h-32v-48h-64v48h-32v-80h128zm0 0" fill="#62808c"/><path d="m304 512h-224c-26.507812 0-48-21.492188-48-48v-336h320v336c0 26.507812-21.492188 48-48 48zm0 0" fill="#e76e54"/><path d="m384 160h-384v-64c0-17.671875 14.328125-32 32-32h320c17.671875 0 32 14.328125 32 32zm0 0" fill="#77959e"/><path d="m260 260c-6.246094-6.246094-16.375-6.246094-22.625 0l-41.375 41.375-41.375-41.375c-6.25-6.246094-16.378906-6.246094-22.625 0s-6.246094 16.375 0 22.625l41.375 41.375-41.375 41.375c-6.246094 6.25-6.246094 16.378906 0 22.625s16.375 6.246094 22.625 0l41.375-41.375 41.375 41.375c6.25 6.246094 16.378906 6.246094 22.625 0s6.246094-16.375 0-22.625l-41.375-41.375 41.375-41.375c6.246094-6.25 6.246094-16.378906 0-22.625zm0 0" fill="#fff"/></svg></span>
+        </div>
+    </div>
+        <div>
+            Status: <%= result.status === 1 ? "Completed" : "Not Completed" %>
+            <span class="btn mark" onclick="handleMark()">Mark as <%= result.status === 1 ? "Not Completed" : "Completed" %></span>
+        </div>
+    </div>
+      <form class="form" id="editForm">
+          <input type="text" id="task_input" value="<%= result.task %>" name="task"/>
+          <button onclick="handleSave();" type="submit">Save</button>
+      </form>
+      
+    </div>
+  </body>
+  <script>
+      function showform () {
+        document.getElementById('editForm').style.display = "flex";
+        document.getElementById('task-info').style.display = "none";
+      }
+
+      function handleSave () {
+        document.getElementById('editForm').style.display = "none";
+        document.getElementById('task-info').style.display = "flex";
+
+        fetch('/items/<%=result.id%>', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                task: document.getElementById("task_input").value,
+            })
+        }).then(response => response.json()).catch(err => console.log(err))
+
+      }
+
+      function handleDelete() {
+        fetch('/items/<%= result.id %>', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }).then(response => {
+            response.json()
+            window.location.replace("/items");
+        }).catch(err => console.log(err))
+        }
+
+        function handleMark() {
+            fetch('/items/<%= result.id %>', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                status: <%= result.status === 1 ? 0 : 1  %>
+                })
+            }).then(response => {
+                response.json()
+                location.reload();
+            }).catch(err => console.log(err))
+        }
+  </script>
+</html>

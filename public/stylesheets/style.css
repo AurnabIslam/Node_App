@@ -1,0 +1,106 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  width: 100%;
+  margin: auto;
+}
+
+html {
+  background: #ddd;
+}
+
+a {
+  color: #00b7ff;
+}
+
+.main-container {
+  background: #fff;
+  font-size: 20px;
+  max-width: 30em;
+  margin: auto;
+  padding: 0.5em 1em;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
+  min-height: 50vh;
+}
+
+h1 {
+  text-align: center;
+}
+
+.form input {
+  height: 30px;
+  width: 75%;
+  margin-right: 15px;
+  padding: 0 5px;
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+}
+
+.form button {
+  width: 80px;
+  background: white;
+  border: solid 1px grey;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
+  padding: 20px;
+}
+
+li {
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #135156;
+  padding: 5px;
+  margin: 0 auto;
+  border-bottom: solid 1px #ddd;
+}
+
+li:last-child {
+  border-bottom: none;
+}
+
+.main-container.edit {
+  padding: 20px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.task-info {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
+
+.rowFlex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#editForm {
+  display: none;
+  width: 90%;
+}
+
+.btn {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
+
+.btn.mark {
+  color: #00b7ff;
+  font-size: 14px;
+}
